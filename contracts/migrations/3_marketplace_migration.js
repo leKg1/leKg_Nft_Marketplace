@@ -1,5 +1,5 @@
-const DiscoveryArtTokenMarketContract = artifacts.require("DiscoveryArtTokenMarketContract");
+const MarketContract = artifacts.require("MarketContract");
 
 module.exports = function (deployer) {
-  deployer.deploy(DiscoveryArtTokenMarketContract);
+  deployer.deploy(MarketContract);
 };

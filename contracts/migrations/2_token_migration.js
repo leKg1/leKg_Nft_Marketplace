@@ -1,5 +1,5 @@
-const DiscoveryArtToken = artifacts.require("DiscoveryArtToken");
+const Tukkis = artifacts.require("Tukkis");
 
 module.exports = function (deployer) {
-  deployer.deploy(DiscoveryArtToken);
+  deployer.deploy(Tukkis);
 };
