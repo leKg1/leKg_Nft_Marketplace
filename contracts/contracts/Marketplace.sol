@@ -3,7 +3,7 @@ pragma solidity ^0.8.0;
 
 import "../node_modules/@openzeppelin/contracts/token/ERC721/IERC721.sol";
 
-contract LeKgMarketContract {
+contract DiscoveryArtTokenMarketContract {
     struct AuctionItem {
         uint256 id;
         address tokenAddress;

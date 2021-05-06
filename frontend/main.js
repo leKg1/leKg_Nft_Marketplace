@@ -1,7 +1,7 @@
-Moralis.initialize("Xv8HWGLyr3nlWZcDfaHjEbxNFAyC5em3x1BJL9uh");
-Moralis.serverURL = 'https://xntl03tx1vai.moralis.io:2053/server';
-const TOKEN_CONTRACT_ADDRESS = "0x912E63927511C67ab0c57fF29ab49a18eF6321Dc";
-const MARKETPLACE_CONTRACT_ADDRESS = "0x41a87d2a0fC31dC070f598c4E553405F77499f6A";
+Moralis.initialize("j58FPj8oaOH1mj6IJK2vOqGXIMstf83df6NBsEAg");
+Moralis.serverURL = 'https://shpmuvmcn4re.moralis.io:2053/server';
+const TOKEN_CONTRACT_ADDRESS = "0xC1229a6e749A7f4233603F1BFEF30c3f1bA0A876";
+const MARKETPLACE_CONTRACT_ADDRESS = "0xA09176CEFBC0FBA07ba835F56dCe19Be9DE0c967";
 
 init = async () => {
     hideElement(userItemsSection);

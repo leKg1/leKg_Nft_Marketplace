@@ -4,11 +4,11 @@ pragma solidity ^0.8.0;
 import "../node_modules/@openzeppelin/contracts/token/ERC721/ERC721.sol";
 import "../node_modules/@openzeppelin/contracts/utils/Counters.sol";
 
-contract GouabyToken is ERC721 {
+contract DiscoveryArtToken is ERC721 {
     using Counters for Counters.Counter;
     Counters.Counter private _tokenIds;
 
-    constructor () ERC721("GouabyToken", "GOT"){}
+    constructor () ERC721("DiscoveryArtToken", "DAT"){}
 
     struct Item {
         uint256 id;

@@ -1,5 +1,5 @@
-const GouabyToken = artifacts.require("GouabyToken");
+const DiscoveryArtToken = artifacts.require("DiscoveryArtToken");
 
 module.exports = function (deployer) {
-  deployer.deploy(GouabyToken);
+  deployer.deploy(DiscoveryArtToken);
 };
