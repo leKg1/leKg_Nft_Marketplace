@@ -11,9 +11,9 @@ contract("Test", async (accounts) => {
 
         const testUri = "https://ipfs.io/ipfs/QmPqirRvGaMgZQBDiukf39zNQ7AW2YS5foH6J1tQxUYdkX";
         const askingPrice = Web3.utils.toWei("0.00001", "ether")
-        const from = accounts[0];
-        console.log('from',from)
-        const to = accounts[1];
+        const seller = accounts[0];
+        console.log('seller',seller)
+        const buyer = accounts[1];
         // const balanceOfSeller = 
         // const balanceOfBuyer = 
 
@@ -27,10 +27,7 @@ contract("Test", async (accounts) => {
 
         console.log('result from receipt',receipt.receipt.logs[0].args)
         console.log('receipt.receipt.logs[0]',receipt.receipt.logs[0].args.tokenId.toString())
-        //console.log('receipt.logs.args[0]',receipt.logs.args[0]) undefined.
-       
 
-        //console.log((await tukkis721.tokenByIndex(0)).toString())
         const ownerOfNFT = await tukkis721.ownerOf(1)
         console.log('owner',ownerOfNFT);
         const balanceOfOwner = await tukkis721.balanceOf(ownerOfNFT);
@@ -46,17 +43,21 @@ contract("Test", async (accounts) => {
         }
         console.log('tukkis721.address',tukkis721.address)
         console.log(askingPrice)
-        const addToMarket = await marketplace.addItemToMarket(tokenId, tukkis721.address, askingPrice,{from: from})         
+        const addToMarket = await marketplace.addItemToMarket(tokenId, tukkis721.address, askingPrice,{from: seller})         
         console.log("addedItem", addToMarket);
 
         const sellItem = await marketplace.buyItem(0, {
-                from: to,
-                to: from,
+                from: buyer, //from the buyer 
+                to: seller,
                 gas: 4000000,
                 value: askingPrice
          })
         
         console.log("soldItem", sellItem)
+        //TODO assert if the buyer has less money before 
+        //TODO assert if the seller has more money then before
+        //TODO assert if the buyer has the nft
+        //TODO assert if the seller has now one nft less
 
     })
 })
