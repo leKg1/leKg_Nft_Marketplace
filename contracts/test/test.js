@@ -10,7 +10,7 @@ contract("Test", async (accounts) => {
     it("marketplace test", async () => {
 
         const testUri = "https://ipfs.io/ipfs/QmPqirRvGaMgZQBDiukf39zNQ7AW2YS5foH6J1tQxUYdkX"
-        const askingPrice = Web3.utils.toWei("0.01", "ether");
+        const askingPrice = Web3.utils.toWei("0.01", "ether").toString()
         const from = accounts[0]
         const to = accounts[1]
         // const balanceOfSeller = 
@@ -27,7 +27,7 @@ contract("Test", async (accounts) => {
         const addToMarket = await marketplace.addItemToMarket(mintToken, tukkis721.address, askingPrice, {
             from: from,
             gas: 4000000
-        }).toString();
+        })
         console.log("addedItem", addToMarket);
 
         const sellItem = await marketplace.buyItem(mintToken, {
@@ -35,7 +35,7 @@ contract("Test", async (accounts) => {
                 to: to,
                 gas: 4000000,
                 value: askingPrice
-            }).toString();
+            })
         console.log("soldItem", sellItem);
 
 
