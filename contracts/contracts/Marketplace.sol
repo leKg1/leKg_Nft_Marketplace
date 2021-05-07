@@ -13,6 +13,12 @@ contract MarketContract {
         bool isSold;
     }
 
+    address payable leSpaceAddress;
+
+    constructor(address payable _leSpaceAddress) {
+        leSpaceAddress = _leSpaceAddress; 
+    }
+
     AuctionItem[] public itemsForSale;
     mapping (address => mapping (uint256 => bool)) activeItems;
 
@@ -59,7 +65,8 @@ contract MarketContract {
         itemsForSale[id].isSold = true;
         activeItems[itemsForSale[id].tokenAddress][itemsForSale[id].tokenId] = false;
         IERC721(itemsForSale[id].tokenAddress).safeTransferFrom(itemsForSale[id].seller, msg.sender, itemsForSale[id].tokenId);
-        itemsForSale[id].seller.transfer(msg.value);
+        itemsForSale[id].seller.transfer(msg.value*99/100);
+        leSpaceAddress.transfer(msg.value*1/100);
 
         emit itemSold(id, msg.sender,itemsForSale[id].askingPrice);
     }
