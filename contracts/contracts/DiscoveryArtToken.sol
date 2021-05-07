@@ -2,9 +2,10 @@
 pragma solidity ^0.8.0;
 
 import "../node_modules/@openzeppelin/contracts/token/ERC721/ERC721.sol";
+import "../node_modules/@openzeppelin/contracts/token/ERC721/extensions/ERC721Enumerable.sol";
 import "../node_modules/@openzeppelin/contracts/utils/Counters.sol";
 
-contract DiscoveryArtToken is ERC721 {
+contract DiscoveryArtToken is ERC721Enumerable {
     using Counters for Counters.Counter;
     Counters.Counter private _tokenIds;
 
@@ -15,7 +16,7 @@ contract DiscoveryArtToken is ERC721 {
         address creator;
         string uri;
     }
-
+    
     mapping (uint256 => Item) public Items;
 
     function createItem(string memory uri) public returns (uint256){

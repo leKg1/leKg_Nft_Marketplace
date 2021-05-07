@@ -60,13 +60,14 @@ contract MarketContract {
 
     function buyItem(uint256 id) payable external ItemExists(id) IsForSale(id) HasTransferApproval(itemsForSale[id].tokenAddress,itemsForSale[id].tokenId){
         require(msg.value >= itemsForSale[id].askingPrice, "Not enough funds sent");
-        require(msg.sender != itemsForSale[id].seller);
+        require(msg.sender != itemsForSale[id].seller, "buyer must not be the seller");
 
         itemsForSale[id].isSold = true;
         activeItems[itemsForSale[id].tokenAddress][itemsForSale[id].tokenId] = false;
         IERC721(itemsForSale[id].tokenAddress).safeTransferFrom(itemsForSale[id].seller, msg.sender, itemsForSale[id].tokenId);
-        itemsForSale[id].seller.transfer(msg.value*99/100);
-        leSpaceAddress.transfer(msg.value*1/100);
+        //itemsForSale[id].seller.transfer(msg.value*99/100);
+        itemsForSale[id].seller.transfer(msg.value);
+        //leSpaceAddress.transfer(msg.value*1/100);
 
         emit itemSold(id, msg.sender,itemsForSale[id].askingPrice);
     }

@@ -24,7 +24,6 @@ contract Tukkis is ERC721 {
         _safeMint(msg.sender, newItemId);
 
         Items[newItemId] = Item(newItemId, msg.sender, uri);
-
         return newItemId;
     }
 
