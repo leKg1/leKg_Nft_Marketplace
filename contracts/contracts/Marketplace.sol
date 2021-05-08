@@ -65,9 +65,9 @@ contract MarketContract {
         itemsForSale[id].isSold = true;
         activeItems[itemsForSale[id].tokenAddress][itemsForSale[id].tokenId] = false;
         IERC721(itemsForSale[id].tokenAddress).safeTransferFrom(itemsForSale[id].seller, msg.sender, itemsForSale[id].tokenId);
-        //itemsForSale[id].seller.transfer(msg.value*99/100);
-        itemsForSale[id].seller.transfer(msg.value);
-        //leSpaceAddress.transfer(msg.value*1/100);
+        itemsForSale[id].seller.transfer(msg.value*99/100);
+        // itemsForSale[id].seller.transfer(msg.value);
+        // leSpaceAddress.transfer(msg.value*1/100);
 
         emit itemSold(id, msg.sender,itemsForSale[id].askingPrice);
     }
