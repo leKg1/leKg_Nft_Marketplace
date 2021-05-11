@@ -28,10 +28,18 @@ contract("Test", async (accounts) => {
         console.log('result from receipt',receipt.receipt.logs[0].args)
         console.log('receipt.receipt.logs[0]',receipt.receipt.logs[0].args.tokenId.toString())
 
-        const ownerOfNFT = await tukkis721.ownerOf(1)
-        console.log('owner',ownerOfNFT);
-        const balanceOfOwner = await tukkis721.balanceOf(ownerOfNFT);
-        console.log('owner',balanceOfOwner.toString())
+        //Balances of seller and buyer
+        const EthBalanceOfSeller = await web3.eth.getBalance(seller)
+        console.log('EthBalanceOfSeller = : ', EthBalanceOfSeller);
+        const EthBalanceOfBuyer = await web3.eth.getBalance(buyer)
+        console.log('EthBalanceOfBuyer = : ', EthBalanceOfBuyer);
+
+        //Seller should have 2 nft
+        const nftSeller = await tukkis721.ownerOf(1)
+        console.log('NftSeller: ',nftSeller);
+        const balanceOfSeller = await tukkis721.balanceOf(nftSeller);
+        console.log('BalanceOfSeller: ',balanceOfSeller.toString())
+        assert.equal(balanceOfSeller, 2, "less nft left than expected");
        // console.log('totalSupply',(await tukkis721.totalSupply()).toString())
     
         const tokenId = receipt.receipt.logs[0].args.tokenId.toString()
@@ -54,10 +62,34 @@ contract("Test", async (accounts) => {
          })
         
         console.log("soldItem", sellItem)
+
         //TODO assert if the buyer has less money before 
         //TODO assert if the seller has more money then before
         //TODO assert if the buyer has the nft
         //TODO assert if the seller has now one nft less
+
+        //Buyer should have less money than before
+        const newEthBalanceOfBuyer = await web3.eth.getBalance(buyer)
+        console.log('newEthBalanceOfBuyer = : ', newEthBalanceOfBuyer);
+        assert.isBelow(parseInt(newEthBalanceOfBuyer), parseInt(EthBalanceOfBuyer), "item not bought yet");
+
+        //Seller should have more than before
+        const newEthBalanceOfSeller = await web3.eth.getBalance(seller)
+        console.log('newEthBalanceOfSeller = : ', newEthBalanceOfSeller);
+        assert.equal(newEthBalanceOfSeller, (EthBalanceOfSeller+askingPrice*99/100), "item not sold yet");
+        // assert.isAbove(parseInt(newEthBalanceOfSeller), parseInt(EthBalanceOfSeller), "item not sold yet");
+
+        //Buyer should have now 1 nft
+        const nftBuyer = await tukkis721.ownerOf(1)
+        console.log('NftBuyer: ',nftBuyer);
+        const balanceOfNftBuyer = await tukkis721.balanceOf(nftBuyer);
+        console.log('BalanceOfNftBuyer: ',balanceOfNftBuyer.toString())
+        assert.equal(balanceOfNftBuyer, 1, "no nft bought");
+
+        //Seller should have 1 nft left
+        const newBalanceOfSeller = await tukkis721.balanceOf(nftSeller);
+        console.log('newBalanceOfSeller: ',newBalanceOfSeller.toString())
+        assert.equal(newBalanceOfSeller, 1, "more nfts left than expected");
 
     })
 })
